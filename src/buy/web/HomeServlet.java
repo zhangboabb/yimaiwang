@@ -17,11 +17,11 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //从service层获取数据
         IProductCategoryService productCategoryService=new ProductCategoryServiceImpl();
-       List<EasybuyProductCategory> categoryList = productCategoryService.queryAllProductCategory(0);
-       //储存数据
+        List<EasybuyProductCategory> categoryList = productCategoryService.queryAllProductCategory("0");
+        //储存数据
        request.setAttribute("categoryList",categoryList);
        //携带数据跳转到home.jsp
-        request.getRequestDispatcher("").forward(request);
+        request.getRequestDispatcher("/front/home.jsp").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

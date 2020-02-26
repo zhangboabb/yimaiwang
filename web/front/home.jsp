@@ -15,7 +15,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link type="text/css" rel="stylesheet" href="${ctx}/front/css/style.css" />
     <!--[if IE 6]>
     <script src="js/iepng.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -42,8 +42,15 @@
 
     <script type="text/javascript" src="js/lrscroll_1.js"></script>
 
+    <%
+        Object obj = request.getAttribute("categoryList");
+        if(obj == null){
+            response.sendRedirect(request.getContextPath()+"/home?action=index");
+        }
 
-    <title>尤洪</title>
+    %>
+
+    <title>易买网</title>
 </head>
 <body>
 <!--Begin Header Begin-->
@@ -126,7 +133,7 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.html">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
+        	<span class="fl">你好，请<a href="${ctx}/front/login.jsp">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>

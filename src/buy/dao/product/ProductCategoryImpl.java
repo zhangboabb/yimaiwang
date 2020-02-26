@@ -1,8 +1,8 @@
 package buy.dao.product;
 
 import buy.entity.EasybuyProductCategory;
+import buy.util.DataSourceUtil;
 
-import buy.util.DateSourceUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public class ProductCategoryImpl implements IProductCategory {
           }
 
             //获取链接
-            Connection conn= DateSourceUtil.getConn();
+            Connection conn= DataSourceUtil.getConn();
             PreparedStatement pstmt=conn.prepareStatement(sql.toString());
 
             ResultSet rs=pstmt.executeQuery();

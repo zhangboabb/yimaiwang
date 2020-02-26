@@ -1,13 +1,14 @@
 package buy.test;
 
 
-import buy.util.DateSourceUtil;
+import buy.util.DataSourceUtil;
+
 
 
 
 public class test {
     public static void main(String[] args) {
-        DateSourceUtil.getConn();
+        DataSourceUtil.getConn();
 
     }
 }

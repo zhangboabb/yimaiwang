@@ -50,4 +50,23 @@ public class EasybuyUserImpl extends DataSourceUtil implements IUser {
         }
         return user;
     }
+
+    @Override
+    public int save(EasybuyUser user) {
+        int num=0;
+        try {
+            StringBuffer sql = new StringBuffer("INSERT into easybuy_user");
+            sql.append("(loginName,userName,password,sex,identityCode,email,mobile,type)");
+            sql.append(" values(?,?,?,?,?,?,?,?)");
+
+            num=this.executeInsert(sql.toString(),user.getLoginname(),user.getUsername()
+                    ,user.getPassword(),user.getSex(),user.getIdentitycode(),user.getEmail()
+            ,user.getMobile(),user.getType());
+            user.setId(num);
+        } catch (Exception e) {
+            e.printStackTrace();
+            num=-1;
+        }
+        return num;
+    }
 }

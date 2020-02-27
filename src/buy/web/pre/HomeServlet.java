@@ -1,6 +1,9 @@
 package buy.web.pre;
 
+import buy.entity.EasybuyNews;
 import buy.entity.EasybuyProductCategory;
+import buy.service.news.INewsService;
+import buy.service.news.NewsServiceImpl;
 import buy.service.product.IProductCategoryService;
 import buy.service.product.ProductCategoryServiceImpl;
 
@@ -26,17 +29,22 @@ public class HomeServlet extends AbstractServlet {
 doPost(request,response);
     }*/
    IProductCategoryService productCategoryService;
+   INewsService newsService;
 
     @Override
     public void init() throws ServletException {
         //从service层获取数据
         productCategoryService=new ProductCategoryServiceImpl();
+        newsService=new NewsServiceImpl();
     }
 
     public String index(HttpServletRequest request, HttpServletResponse response)throws Exception{
          List<EasybuyProductCategory> categoryList = productCategoryService.queryAllProductCategory("0");
+         List<EasybuyNews> newsList=newsService.getAllNewsList();
+
          //储存数据
          request.setAttribute("categoryList",categoryList);
+         request.setAttribute("newsList",newsList);
 
          //页面跳转
          return "/front/home";

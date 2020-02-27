@@ -6,6 +6,6 @@ import java.sql.SQLException;
 
 public interface IUserService {
     EasybuyUser getUserByName(String loginName) throws SQLException, ClassNotFoundException;
-
+    boolean save(EasybuyUser user);
 
 }

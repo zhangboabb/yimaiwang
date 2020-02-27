@@ -133,7 +133,19 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="${ctx}/front/login.jsp">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
+        	<span class="fl">
+
+                <c:if test="${sessionScope.loginUser == null}">
+                    你好，请<a href="${ctx}/front/login.jsp">登录</a>&nbsp;
+                    <a href="${ctx}/register?action=toRegister" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;
+                </c:if>
+
+                <c:if test="${sessionScope.loginUser != null}">
+                    用户<a href="#" style="color: pink">【${sessionScope.loginUser.loginname}】</a>登录&nbsp;
+                    <a href="${ctx}/login?action=logOut" style="color:#ff4e00;">注销</a>&nbsp;|&nbsp;
+                </c:if>
+
+                <a href="#">我的订单</a>&nbsp;|</span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
@@ -517,11 +529,15 @@
                 <span class="fr"><a href="#">更多 ></a></span>新闻资讯
             </div>
             <ul>
-                <li><span>[ 特惠 ]</span><a href="#">掬一轮明月 表无尽惦念</a></li>
-                <li><span>[ 公告 ]</span><a href="#">好奇金装成长裤新品上市</a></li>
+                <c:forEach items="${newsList}" var="newsList">
+                <li><span>[ 特惠 ]</span><a href="#">${newsList.title}</a></li>
+
+                <%--<li><span>[ 公告 ]</span><a href="#">好奇金装成长裤新品上市</a></li>
                 <li><span>[ 特惠 ]</span><a href="#">大牌闪购 · 抢！</a></li>
                 <li><span>[ 公告 ]</span><a href="#">发福利 买车就抢千元油卡</a></li>
-                <li><span>[ 公告 ]</span><a href="#">家电低至五折</a></li>
+               <li><span>[ 公告 ]</span><a href="#">家电低至五折</a></li>--%>
+
+                </c:forEach>
             </ul>
             <div class="charge_t">
                 话费充值<div class="ch_t_icon"></div>

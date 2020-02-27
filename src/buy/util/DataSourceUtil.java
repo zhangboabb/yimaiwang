@@ -4,10 +4,7 @@ package buy.util;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @Author: laoyu
@@ -22,7 +19,7 @@ public class DataSourceUtil {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
 
     private PreparedStatement pstmt;
-    private Connection conn;
+    private static Connection conn=null;
     private ResultSet rs;
 
     //创建druid数据源对象
@@ -59,7 +56,7 @@ public class DataSourceUtil {
      * @return 连接对象
      */
     public static Connection getConn(){
-        Connection conn=null;
+        conn=null;
         //加载mysql驱动（开启服务）
         try {
             Class.forName(DRIVER);
@@ -172,5 +169,28 @@ public class DataSourceUtil {
             }
         }
     }
+
+    public int executeInsert(String sql,Object... param){
+        Long num=0L;
+        try {
+            getConn(); // 得到数据库连接
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // 得到PreparedStatement对象
+            if (param != null) {
+                for (int i = 0; i < param.length; i++) {
+                    pstmt.setObject(i + 1, param[i]); // 为预编译sql设置参数
+                }
+            }
+            pstmt.executeUpdate();
+            ResultSet rs= pstmt.getGeneratedKeys(); // 执行SQL语句
+            if (rs.next())
+                num=rs.getLong(1);
+        } catch (SQLException e) {
+            e.printStackTrace(); // 处理SQLException异常
+        } finally {
+            this.closeAll(conn, pstmt, null);
+        }
+        return num.intValue();
+    }
+
 
 }

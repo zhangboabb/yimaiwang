@@ -6,4 +6,5 @@ import java.sql.SQLException;
 
 public interface IUser {
     EasybuyUser getUserByloginName(String loginName) throws SQLException;
+    int save(EasybuyUser user);
 }

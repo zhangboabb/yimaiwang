@@ -44,10 +44,10 @@ public class DataSourceUtil {
         druidDataSource.setDriverClassName(DRIVER);
         druidDataSource.setUrl(URL);
         //设置连接池相关属性
-        druidDataSource.setInitialSize(5);//初始化连接池数量
-        druidDataSource.setMaxActive(100);//最大连接数
-        druidDataSource.setMinIdle(1);//最大空闲连接数
-        druidDataSource.setMaxWait(1000);//连接等待时长，单位：毫秒
+        druidDataSource.setInitialSize(20);//初始化连接池数量
+        druidDataSource.setMaxActive(2000);//最大连接数
+        druidDataSource.setMinIdle(10);//最大空闲连接数
+        druidDataSource.setMaxWait(5000);//连接等待时长，单位：毫秒
         druidDataSource.setFilters("stat");//设置监控
     }
 
@@ -128,6 +128,8 @@ public class DataSourceUtil {
             rs = pstmt.executeQuery(); // 执行SQL语句
         } catch (SQLException e) {
             e.printStackTrace();// 处理SQLException异常
+        }finally {
+            closeAll(conn,pstmt,rs);
         }
         return rs;
     }

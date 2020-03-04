@@ -64,7 +64,7 @@ public class RegisterServlet extends AbstractServlet {
         user.setType(Constants.UserType.PRE);
 
         //信息校验
-        result = checkUser(user);
+          result = checkUser(user);
         if (result.getStatus() == Constants.ReturnResult.SUCCESS) {
             //注册用户
             boolean flag = userService.save(user);

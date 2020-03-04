@@ -26,16 +26,18 @@ public class ProductCategoryImpl implements IProductCategory {
             sql.append("select * from easybuy_product_category where 1=1");
 
             //判断parentId的值，如果为0，显示一级分类
-          if ( (!"".equals(parentId) || null !=parentId)){
-              parentId="0";
-              sql.append(" and parentId = "+ parentId);
+          if ( (!"".equals(parentId) && null !=parentId)){
+              sql.append(" and parentId = ?");
           }
 
             //获取链接
-            Connection conn= DataSourceUtil.getConn();
-            PreparedStatement pstmt=conn.prepareStatement(sql.toString());
+            conn= DataSourceUtil.getConn();
+            pstmt=conn.prepareStatement(sql.toString());
+            if (!"".equals(parentId) && null !=parentId){
+                pstmt.setObject(1,parentId);
+            }
 
-            ResultSet rs=pstmt.executeQuery();
+             rs=pstmt.executeQuery();
             //处理结果集
             while (rs.next()){
                 //实例化对象
@@ -50,6 +52,8 @@ public class ProductCategoryImpl implements IProductCategory {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            DataSourceUtil.closeConnection(conn);
         }
         return productCategories;
     }
@@ -62,7 +66,8 @@ public class ProductCategoryImpl implements IProductCategory {
         //查询一级分类的列表
         List<ProductCategoryVo> pc1VoList = new ArrayList<ProductCategoryVo>();
         //查询一级分类
-        List<EasybuyProductCategory> pcList = queryAllProductCategory(null);
+        List<EasybuyProductCategory> pcList = queryAllProductCategory("0");
+
         //查询二级分类
         for (EasybuyProductCategory productCategory1 : pcList) {
             ProductCategoryVo pc1Vo = new ProductCategoryVo();
@@ -89,7 +94,7 @@ public class ProductCategoryImpl implements IProductCategory {
                 pc2Vo.setProductCategoryVoList(pc3VoList);
                 pc2VoList.add(pc2Vo);
             }
-            pc1Vo.setProductCategoryVoList(pc1VoList);
+            pc1Vo.setProductCategoryVoList(pc2VoList);
             pc1VoList.add(pc1Vo);
         }
         return pc1VoList;

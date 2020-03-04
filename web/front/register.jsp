@@ -124,9 +124,9 @@
                     </span>
                 </td>
               </tr>
-              <tr height="60">
+              <tr height="60" bgcolor="#ffc0cb">
               	<td>&nbsp;</td>
-                <td><input type="submit" value="立即注册" class="log_btn" onclick="reg()"/></td>
+                <td><input type="submit" value="立即注册" class="log_btn"  onclick="reg()"/></td>
               </tr>
             </table>
             </form>

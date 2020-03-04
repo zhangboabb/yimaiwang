@@ -106,7 +106,7 @@
     function login() {
         var loginName=$("#loginName").val();
         var password=$("#password").val();
-        /*alert(loginName+"-"+password);*/
+      /*  alert(loginName+"-"+password);*/
 
          $.ajax({
              url:"${ctx}/login",

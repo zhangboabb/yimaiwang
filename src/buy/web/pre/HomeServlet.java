@@ -6,6 +6,7 @@ import buy.service.news.INewsService;
 import buy.service.news.NewsServiceImpl;
 import buy.service.product.IProductCategoryService;
 import buy.service.product.ProductCategoryServiceImpl;
+import buy.util.ProductCategoryVo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,7 +40,7 @@ doPost(request,response);
     }
 
     public String index(HttpServletRequest request, HttpServletResponse response)throws Exception{
-         List<EasybuyProductCategory> categoryList = productCategoryService.queryAllProductCategory("0");
+         List<ProductCategoryVo> categoryList = productCategoryService.queryAllProductCategory();
          List<EasybuyNews> newsList=newsService.getAllNewsList();
 
          //储存数据
